@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MegaMenu from './MegaMenu.astro';
+
+interface Props {
+  title: string;
+  label: string;
+  intro: string;
+  overview: string;
+  price: string;
+  highlights: Array<[string, string]>;
+  applications: Array<[string, string]>;
+  equipment: string[];
+}
+
+const { title, label, intro, overview, price, highlights, applications, equipment } = Astro.props;
+const phone = '+48 505 370 405';
+---
+
+<BaseLayout title={`${title} | Tani Wynajem`} description={intro}>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Główna nawigacja">
+      <a class="brand" href="/"><i class="mark" aria-hidden="true"></i>tani<span>wynajem</span></a>
+      <div class="navlinks"><MegaMenu /><a href="/#jak">Jak działamy</a><a href="/#dlaczego">Dlaczego my</a><a href="#kontakt">Kontakt</a></div>
+      <a class="phone" href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="service-hero">
+      <img src="/hero-osuszanie.png" alt="Profesjonalny sprzęt dostępny w wypożyczalni" />
+      <div class="shell hero-content">
+        <p class="crumb"><a href="/">Start</a><span>/</span>{label}</p>
+        <div class="eyebrow hero-eyebrow">Warszawa i okolice · sprzęt od ręki</div>
+        <h1>{title}</h1>
+        <p class="lead">{intro}</p>
+        <div class="hero-actions"><a class="button" href={`tel:${phone.replaceAll(' ', '')}`}>Zadzwoń i zapytaj</a><a class="button outline" href="#kontakt">Wyślij zapytanie</a></div>
+      </div>
+      <div class="price-card"><span>Wynajem</span><strong>{price}</strong><small>indywidualna wycena zestawu</small></div>
+    </section>
+
+    <section class="intro-section">
+      <div class="shell intro-grid">
+        <div>
+          <div class="eyebrow dark">dobierzemy właściwy sprzęt</div>
+          <h2>Skuteczne rozwiązanie bez zbędnych formalności.</h2>
+          <p>{overview}</p>
+          <a class="text-link" href={`tel:${phone.replaceAll(' ', '')}`}>Porozmawiaj z doradcą <span>→</span></a>
+        </div>
+        <div class="highlights" aria-label="Najważniejsze informacje">
+          {highlights.map(([value, label]) => <div class="highlight"><strong>{value}</strong><span>{label}</span></div>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="applications-section">
+      <div class="shell">
+        <div class="section-heading"><div><div class="eyebrow">zastosowania</div><h2>Gdzie sprawdzi się ten sprzęt?</h2></div><p>Dobierzemy urządzenie do warunków na miejscu, wielkości pomieszczenia i czasu, którym dysponujesz.</p></div>
+        <div class="application-grid">{applications.map(([heading, text], index) => <article class="application"><span>{String(index + 1).padStart(2, '0')}</span><h3>{heading}</h3><p>{text}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="equipment-section">
+      <div class="shell equipment-grid">
+        <div class="equipment-art" aria-hidden="true"><div class="unit"><i></i><b></b></div></div>
+        <div class="equipment-copy"><div class="eyebrow dark">wypożyczalnia sprzętu</div><h2>Co możemy przygotować?</h2><p>Sprzęt przekazujemy gotowy do pracy. Podpowiemy, jak go ustawić i jak bezpiecznie z niego korzystać.</p><ul>{equipment.map(item => <li>{item}</li>)}</ul></div>
+      </div>
+    </section>
+
+    <section class="process-section">
+      <div class="shell"><div class="eyebrow">jak to działa</div><h2>Prosty wynajem w trzech krokach.</h2><div class="process-grid"><article><b>01</b><h3>Opowiedz o sytuacji</h3><p>Telefonicznie ustalimy, czego potrzebujesz i na kiedy.</p></article><article><b>02</b><h3>Dobieramy zestaw</h3><p>Proponujemy sprzęt oraz dogodny okres wynajmu.</p></article><article><b>03</b><h3>Odbiór lub dostawa</h3><p>Odbierasz sprzęt albo dostarczamy go pod wskazany adres.</p></article></div></div>
+    </section>
+
+    <section class="contact-section" id="kontakt"><div class="shell contact-box"><div><div class="eyebrow dark">potrzebujesz sprzętu szybko?</div><h2>Zapytaj o dostępność.</h2><p>Zadzwoń lub napisz — wrócimy z konkretną propozycją dla Twojej sytuacji.</p></div><div class="contact-actions"><a class="button" href={`tel:${phone.replaceAll(' ', '')}`}>Zadzwoń: {phone}</a><a class="mail" href="mailto:kontakt@tani-wynajem.com.pl">kontakt@tani-wynajem.com.pl</a></div></div></section>
+  </main>
+
+  <footer class="footer"><div class="shell"><a class="brand" href="/"><i class="mark" aria-hidden="true"></i>tani<span>wynajem</span></a><span>© 2026 Tani Wynajem · Warszawa i okolice</span></div></footer>
+
+  <style>
+    :global(body){margin:0;background:#061014;color:#f6f7f2;font-family:"Fixel Text",Verdana,Geneva,Tahoma,sans-serif}.shell{width:min(1180px,calc(100% - 48px));margin:auto}.site-header{position:absolute;z-index:4;left:0;right:0;border-bottom:1px solid rgba(255,255,255,.17)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:28px}.brand{display:flex;align-items:center;gap:10px;color:#fff;font-size:1.15rem;font-weight:700;letter-spacing:-.045em;text-decoration:none}.mark{position:relative;width:22px;height:22px;background:#d9ff42;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}.mark:after{position:absolute;inset:6px;background:#0a171c;clip-path:inherit;content:""}.navlinks{display:flex;gap:24px;color:#d5ddde;font-size:.76rem}.navlinks a,.phone{color:inherit;text-decoration:none}.navlinks a:hover{color:#d9ff42}.phone{color:#d9ff42;font-size:.8rem;white-space:nowrap}.service-hero{position:relative;min-height:740px;overflow:hidden;isolation:isolate;background:#091116}.service-hero:after{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(3,11,13,.85),rgba(3,11,13,.47) 55%,rgba(3,11,13,.18)),linear-gradient(0deg,#030b0d,transparent 48%);content:""}.service-hero img{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.72)}.hero-content{position:relative;padding-top:208px}.crumb{display:flex;gap:9px;margin:0 0 46px;color:#c6d1d1;font-size:.78rem}.crumb a{color:#d9ff42;text-decoration:none}.crumb span{opacity:.5}.eyebrow{margin:0 0 12px;color:#d9ff42;font-size:.68rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase}.hero-eyebrow{position:absolute;top:286px;left:-48px;margin:0;white-space:nowrap;writing-mode:vertical-rl;transform:rotate(180deg)}.eyebrow.dark{color:#087b6f}.service-hero h1,.intro-section h2,.applications-section h2,.equipment-section h2,.process-section h2,.contact-section h2{max-width:740px;margin:0;letter-spacing:-.06em;font-weight:500;line-height:1.02}.service-hero h1{font-size:clamp(3rem,5vw,5rem)}.lead{max-width:560px;margin:24px 0 0;color:#e1e7e7;font-size:1.1rem;line-height:1.65}.hero-actions{display:flex;gap:12px;margin-top:30px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 21px;border:1px solid #d9ff42;background:#d9ff42;color:#071013;font-size:.84rem;font-weight:500;text-decoration:none;transition:.2s}.button:hover{transform:translateY(-2px);background:#efffb0;border-color:#efffb0}.button.outline{border-color:rgba(255,255,255,.55);background:transparent;color:#fff}.button.outline:hover{background:#fff;border-color:#fff;color:#071013}.price-card{position:absolute;right:max(24px,calc((100% - 1180px) / 2));bottom:0;width:238px;padding:21px 24px;background:#d9ff42;color:#071013}.price-card span,.price-card small{display:block;font-size:.72rem;font-weight:500}.price-card strong{display:block;margin:7px 0 3px;font-size:1.85rem;font-weight:600;letter-spacing:-.06em}.intro-section{padding:112px 0;background:#fff;color:#071013}.intro-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:90px;align-items:center}.intro-section h2,.applications-section h2,.equipment-section h2,.process-section h2,.contact-section h2{font-size:clamp(2rem,3vw,3.2rem)}.intro-section p,.equipment-copy p{max-width:540px;color:#526064;line-height:1.7}.text-link{display:inline-flex;gap:10px;margin-top:18px;color:#071013;font-size:.9rem;font-weight:600;text-decoration:none}.text-link span{color:#087b6f}.highlights{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid #d9e1dd}.highlight{min-height:145px;padding:22px;border:1px solid #d9e1dd;display:flex;flex-direction:column;justify-content:space-between}.highlight:nth-child(2),.highlight:nth-child(3){background:#0d2731;color:#fff}.highlight strong{font-size:1.9rem;font-weight:600;letter-spacing:-.065em}.highlight span{font-size:.82rem;font-weight:500;line-height:1.35}.applications-section{padding:110px 0;background:#071014}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:48px}.section-heading p{max-width:390px;margin:0;color:#b7c1c2;line-height:1.6}.application-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.application{min-height:222px;padding:25px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.02)}.application span{color:#d9ff42;font-size:.76rem}.application h3{margin:48px 0 8px;font-size:1.25rem;font-weight:500;letter-spacing:-.04em}.application p{margin:0;color:#b7c1c2;font-size:.9rem;line-height:1.55}.equipment-section{padding:118px 0;background:#fff;color:#071013}.equipment-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:110px;align-items:center}.equipment-art{position:relative;display:grid;min-height:405px;place-items:center;overflow:hidden;background:linear-gradient(145deg,#d9ff42,#a1c21a)}.equipment-art:before,.equipment-art:after{position:absolute;width:340px;height:340px;border:1px solid rgba(7,16,20,.28);content:"";transform:rotate(30deg)}.equipment-art:before{top:-200px;left:-175px}.equipment-art:after{right:-175px;bottom:-200px}.unit{position:relative;z-index:1;width:170px;height:245px;border-radius:18px 18px 28px 28px;background:#102329;box-shadow:28px 28px 0 rgba(4,18,20,.2)}.unit:before{position:absolute;top:40px;right:22px;left:22px;height:95px;background:repeating-linear-gradient(0deg,#31474c 0 4px,#0b171a 4px 10px);content:""}.unit i{position:absolute;right:24px;bottom:28px;left:24px;height:25px;border:2px solid #d9ff42;border-radius:4px}.unit b{position:absolute;bottom:-28px;left:40px;width:90px;height:45px;border-right:11px solid #102329;border-left:11px solid #102329;border-radius:50%}.equipment-copy ul{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:28px 0 0;padding:0;list-style:none}.equipment-copy li{padding:14px 0;border-top:1px solid #cbd7d3;font-size:.9rem;font-weight:500}.equipment-copy li:before{margin-right:8px;color:#087b6f;content:"✓"}.process-section{padding:105px 0;background:#0d2731}.process-section h2{margin-bottom:44px}.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}.process-grid article{padding-top:19px;border-top:1px solid rgba(217,255,66,.35)}.process-grid b{color:#d9ff42;font-size:.78rem;font-weight:500}.process-grid h3{margin:31px 0 8px;font-size:1.22rem;font-weight:500}.process-grid p{max-width:290px;margin:0;color:#b7c1c2;line-height:1.6}.contact-section{padding:95px 0;background:#071014}.contact-box{display:flex;align-items:center;justify-content:space-between;gap:48px;padding:48px;background:#d9ff42;color:#071013}.contact-box h2{margin-top:4px}.contact-box p{max-width:580px;margin:15px 0 0;color:#263228}.contact-actions{display:flex;flex-direction:column;align-items:flex-start;gap:13px;min-width:260px}.contact-actions .button{border-color:#071013;background:#071013;color:#fff}.mail{color:#071013;font-size:.85rem;font-weight:600}.footer{padding:40px 0;background:#071014;color:#aeb9ba;font-size:.78rem}.footer .shell{display:flex;align-items:center;justify-content:space-between;gap:24px}.footer .brand{font-size:1rem}
+    @media(max-width:850px){.navlinks{display:none}.service-hero{min-height:690px}.hero-content{padding-top:170px}.hero-eyebrow{left:-28px}.intro-grid,.equipment-grid{grid-template-columns:1fr;gap:45px}.application-grid{grid-template-columns:repeat(2,1fr)}.price-card{right:24px}.section-heading{align-items:start;flex-direction:column}.contact-box{align-items:start;flex-direction:column}}
+    @media(max-width:560px){.shell{width:min(100% - 32px,1180px)}.nav{height:68px}.phone{font-size:.73rem}.service-hero{min-height:650px}.hero-content{padding-top:140px}.hero-eyebrow{display:none}.crumb{margin-bottom:34px}.service-hero h1{font-size:2.7rem}.lead{font-size:1rem}.hero-actions{flex-direction:column;align-items:start}.price-card{display:none}.intro-section,.applications-section,.equipment-section,.process-section,.contact-section{padding:72px 0}.highlights,.equipment-copy ul,.application-grid,.process-grid{grid-template-columns:1fr}.highlight{min-height:120px}.application{min-height:180px}.equipment-art{min-height:330px}.contact-box{padding:30px}.footer .shell{align-items:start;flex-direction:column}}
+  </style>
+</BaseLayout>
