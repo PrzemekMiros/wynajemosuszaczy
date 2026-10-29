@@ -17,10 +17,40 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23d9ff42' d='M32 4 57 18v28L32 60 7 46V18z'/%3E%3Cpath fill='%230a1418' d='m32 14 15 9v18L32 50 17 41 17 23z'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23d9ff42'/%3E%3C/svg%3E" />
   </head>
   <body><slot /></body>
+  <script>
+    const header = document.querySelector('header');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const updateHeader = () => {
+      if (!header) return;
+      const currentScrollY = window.scrollY;
+      const isScrollingUp = currentScrollY < lastScrollY;
+
+      if (currentScrollY <= 24) {
+        header.classList.remove('scroll-header', 'scroll-header-hidden');
+      } else {
+        header.classList.add('scroll-header');
+        header.classList.toggle('scroll-header-hidden', !isScrollingUp);
+      }
+
+      lastScrollY = Math.max(currentScrollY, 0);
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    }, { passive: true });
+  </script>
   <style is:global>
     @font-face{font-family:"Fixel Text";font-style:normal;font-weight:400;font-display:swap;src:url("/fonts/FixelText-Regular.woff2") format("woff2")}
     @font-face{font-family:"Fixel Text";font-style:normal;font-weight:500;font-display:swap;src:url("/fonts/FixelText-Medium.woff2") format("woff2")}
     @font-face{font-family:"Fixel Text";font-style:normal;font-weight:600;font-display:swap;src:url("/fonts/FixelText-SemiBold.woff2") format("woff2")}
     @font-face{font-family:"Fixel Text";font-style:normal;font-weight:700;font-display:swap;src:url("/fonts/FixelText-Bold.woff2") format("woff2")}
+    header.scroll-header{position:fixed;top:0;right:0;left:0;background:rgba(6,16,20,.92);box-shadow:0 8px 24px rgba(0,0,0,.14);transition:transform .25s ease,background .25s ease;will-change:transform}
+    header.scroll-header-hidden{transform:translateY(-105%)}
   </style>
 </html>

@@ -21,7 +21,7 @@ const phone = '+48 505 370 405';
   <header class="site-header">
     <nav class="nav shell" aria-label="Główna nawigacja">
       <a class="brand" href="/"><i class="mark" aria-hidden="true"></i>tani<span>wynajem</span></a>
-      <div class="navlinks"><MegaMenu /><a href="/#jak">Jak działamy</a><a href="/#dlaczego">Dlaczego my</a><a href="#kontakt">Kontakt</a></div>
+      <div class="navlinks"><MegaMenu /><a href="/#jak">Jak działamy</a><a href="/#dlaczego">Dlaczego my</a><a href="/kontakt/">Kontakt</a></div>
       <a class="phone" href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</a>
     </nav>
   </header>
@@ -34,7 +34,7 @@ const phone = '+48 505 370 405';
         <div class="eyebrow hero-eyebrow">Warszawa i okolice · sprzęt od ręki</div>
         <h1>{title}</h1>
         <p class="lead">{intro}</p>
-        <div class="hero-actions"><a class="button" href={`tel:${phone.replaceAll(' ', '')}`}>Zadzwoń i zapytaj</a><a class="button outline" href="#kontakt">Wyślij zapytanie</a></div>
+        <div class="hero-actions"><a class="button" href={`tel:${phone.replaceAll(' ', '')}`}>Zadzwoń i zapytaj</a><a class="button outline" href="/kontakt/">Wyślij zapytanie</a></div>
       </div>
       <div class="price-card"><span>Wynajem</span><strong>{price}</strong><small>indywidualna wycena zestawu</small></div>
     </section>
