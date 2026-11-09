@@ -2,17 +2,39 @@
 interface Props {
   title: string;
   description: string;
+  image?: string;
+  canonical?: string;
+  type?: 'website' | 'article';
 }
 
-const { title, description } = Astro.props;
+const { title, description, image = '/hero-osuszanie.png', canonical, type = 'website' } = Astro.props;
+const siteUrl = Astro.site ?? new URL('https://tani-wynajem.com.pl');
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+const imageUrl = new URL(image, siteUrl).toString();
 ---
 
 <!doctype html>
 <html lang="pl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#061014" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content="Tani Wynajem" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23d9ff42' d='M32 4 57 18v28L32 60 7 46V18z'/%3E%3Cpath fill='%230a1418' d='m32 14 15 9v18L32 50 17 41 17 23z'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23d9ff42'/%3E%3C/svg%3E" />
   </head>
