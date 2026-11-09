@@ -1,0 +1,8 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
+  "name": "pl.com.tani-wynajem/discovery",
+  "version": "1.0.0",
+  "title": "Tani Wynajem",
+  "description": "Discovery metadata only; no remote MCP endpoint is currently advertised.",
+  "websiteUrl": "https://tani-wynajem.com.pl"
+}
